@@ -17,7 +17,7 @@ You don't need to follow the articles above, as this guide contains all the step
 - [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest)
 - [Dapr CLI](https://docs.dapr.io/getting-started/install-dapr-cli/)
 
-## Create an AKS cluster
+## 1. Create an AKS cluster
 
 1. Login to Azure using the CLI:
 
@@ -96,7 +96,7 @@ You don't need to follow the articles above, as this guide contains all the step
     aks-nodepool1-27324113-vmss000001   Ready    agent   20h   v1.24.9
     ```
 
-## Setup Dapr on AKS
+## 2. Setup Dapr on AKS
 
 1. Initialize Dapr on the provisioned AKS cluster:
 
@@ -132,7 +132,7 @@ You don't need to follow the articles above, as this guide contains all the step
 
     Ensure that all services are healthy and running before continuing.
 
-## Add a Redis State Store
+## 3. Add a Redis State Store
 
 1. Add a reference to bitnamis Redis Helm chart:
 
@@ -205,9 +205,7 @@ You don't need to follow the articles above, as this guide contains all the step
     redis-replicas-2   1/1     Running   0          11m
     ```
 
-## Apply the Redis State Store configuration
-
-1. Ensure you are in the root directory of this repo and run:
+5. Ensure you are in the root directory of this repo and run:
 
     ```bash
     kubectl apply -f ./resources/redis.yaml
@@ -219,7 +217,7 @@ You don't need to follow the articles above, as this guide contains all the step
     component.dapr.io/statestore created
     ```
 
-## Deploy the Node app
+## 4. Deploy the Node app
 
 1. Ensure you're in the root of the repository and apply the Node app configuration to deploy the Node app:
 
@@ -289,7 +287,7 @@ You don't need to follow the articles above, as this guide contains all the step
     { "orderId": "42" }
     ```
 
-## Deploy the Python app
+## 5. Deploy the Python app
 
 1. Ensure you're in the root of the repository and apply the Node app configuration to deploy the Python app:
 
@@ -339,7 +337,7 @@ You don't need to follow the articles above, as this guide contains all the step
     curl http://<EXTERNAL_IP>/order
     ```
 
-## Clean-up
+## 6. Clean-up
 
 1. Navigate to the resources folder and run this command to delete the services and state resources:
 
