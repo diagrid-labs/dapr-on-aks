@@ -1,12 +1,17 @@
 # Dapr on Azure Kubernetes Service (AKS)
 
-This how-to guide combines three Dapr articles and explains how to run Dapr apps on Azure Kubernetes Service.
+This how-to guide combines [three Dapr docs articles](#resources) and explains how to run Dapr apps on Azure Kubernetes Service. You don't need to follow the three original articles, as this guide contains all the steps necessary.
 
-1. [Setup an Azure Kubernetes Service (AKS) cluster](https://docs.dapr.io/operations/hosting/kubernetes/cluster/setup-aks/).
-2. [Tutorial: Configure state store and pub/sub message broker](https://docs.dapr.io/getting-started/tutorials/configure-state-pubsub/)
-3. [Hello Kubernetes](https://github.com/dapr/quickstarts/tree/master/tutorials/hello-kubernetes)
+In this guide:
+- An AKS cluster will be created.
+- Dapr will be installed on the cluster.
+- Redis will be installed as the state store.
+- Two applications will be deployed to the cluster.
 
-You don't need to follow the articles above, as this guide contains all the steps necessary.
+The NodeJS application has a `neworder` POST endpoint that persists order IDs, and an `order` GET endpoint to retrieve the latest order ID.
+
+The Python application creates the order IDs and calls the `neworder` endpoint of the NodeJS service.
+
 
 ## Prerequisites  
 
@@ -16,6 +21,7 @@ You don't need to follow the articles above, as this guide contains all the step
 - [helm](https://github.com/helm/helm#install)
 - [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest)
 - [Dapr CLI](https://docs.dapr.io/getting-started/install-dapr-cli/)
+- Optional: [VSCode](https://code.visualstudio.com/) with [REST client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
 
 ## 1. Create an AKS cluster
 
@@ -134,7 +140,7 @@ You don't need to follow the articles above, as this guide contains all the step
 
 ## 3. Add a Redis State Store
 
-1. Add a reference to bitnamis Redis Helm chart:
+1. Add a reference to the bitnami Redis Helm chart:
 
     ```bash
     helm repo add bitnami https://charts.bitnami.com/bitnami
@@ -257,7 +263,7 @@ You don't need to follow the articles above, as this guide contains all the step
     nodeapp   LoadBalancer   <INTERNAL_IP>   <EXTERNAL_IP>   80:31198/TCP   49m
     ```
 
-4. Verify the service is running:
+4. Verify the service is running using curl or a REST client:
 
     ```bash
     curl http://<EXTERNAL_IP>/ports
@@ -269,13 +275,13 @@ You don't need to follow the articles above, as this guide contains all the step
     {"DAPR_HTTP_PORT":"3500","DAPR_GRPC_PORT":"50001"}
     ```
 
-5. Submit an order to the app:
+5. Submit an order to the app using curl or a REST client:
 
     ```bash
     curl --request POST --data "@sample.json" --header Content-Type:application/json http://<EXTERNAL_IP>/neworder
     ```
 
-6. Confirm that the order ID is persisted:
+6. Confirm that the order ID is persisted using curl or a REST client:
 
     ```bash
     curl http://<EXTERNAL_IP>/order
@@ -331,13 +337,15 @@ You don't need to follow the articles above, as this guide contains all the step
     ...
     ```
 
-4. Confirm that the latest order ID is persisted:
+4. Confirm that the latest order ID is persisted using curl or a REST client:
 
     ```bash
     curl http://<EXTERNAL_IP>/order
     ```
 
 ## 6. Clean-up
+
+Follow these steps to remove all the cloud resources created in this how-to guide.
 
 1. Navigate to the resources folder and run this command to delete the services and state resources:
 
@@ -360,6 +368,12 @@ You don't need to follow the articles above, as this guide contains all the step
     ```bash
     az aks delete --name <CLUSTER_NAME> --resource-group <RESOURCE_GROUP_NAME>
     ```
+
+## Resources
+
+1. [Setup an Azure Kubernetes Service (AKS) cluster](https://docs.dapr.io/operations/hosting/kubernetes/cluster/setup-aks/).
+2. [Tutorial: Configure state store and pub/sub message broker](https://docs.dapr.io/getting-started/tutorials/configure-state-pubsub/)
+3. [Hello Kubernetes](https://github.com/dapr/quickstarts/tree/master/tutorials/hello-kubernetes)
 
 ## More information
 
