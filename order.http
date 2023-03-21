@@ -1,0 +1,12 @@
+### Update the @externalIP variable with the external IP adress of your AKS cluster
+@externalIP=
+
+### Make a new order
+POST http://{{externalIP}}/neworder
+Content-Type: application/json
+
+< sample.json
+
+### Check last order state
+
+GET http://{{externalIP}}/order
