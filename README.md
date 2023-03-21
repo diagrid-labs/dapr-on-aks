@@ -3,10 +3,11 @@
 This how-to guide combines [three Dapr docs articles](#resources) and explains how to run Dapr apps on Azure Kubernetes Service. You don't need to follow the three original articles, as this guide contains all the steps necessary.
 
 In this guide:
+
 - An AKS cluster will be created.
 - Dapr will be installed on the cluster.
 - Redis will be installed as the state store.
-- Two applications will be deployed to the cluster.
+- Two Dapr applications will be deployed to the cluster.
 
 The NodeJS application has a `neworder` POST endpoint that persists order IDs, and an `order` GET endpoint to retrieve the latest order ID.
 
@@ -345,7 +346,7 @@ The Python application creates the order IDs and calls the `neworder` endpoint o
 
 ## 6. Clean-up
 
-Follow these steps to remove all the cloud resources created in this how-to guide.
+Follow these steps to remove all the apps, components and cloud resources created in this how-to guide.
 
 1. Navigate to the resources folder and run this command to delete the services and state resources:
 
@@ -367,6 +368,12 @@ Follow these steps to remove all the cloud resources created in this how-to guid
 
     ```bash
     az aks delete --name <CLUSTER_NAME> --resource-group <RESOURCE_GROUP_NAME>
+    ```
+
+     _Example_
+
+    ```bash
+    az aks delete --name dapr-aks --resource-group dapr-aks-rg
     ```
 
 ## Resources
