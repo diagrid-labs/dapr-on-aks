@@ -9,9 +9,11 @@ In this guide:
 - Redis will be installed as the state store.
 - Two Dapr applications will be deployed to the cluster.
 
+![Dapr on AKS](images/dapr-on-k8s.png)
+
 The NodeJS application has a `neworder` POST endpoint that persists order IDs, and an `order` GET endpoint to retrieve the latest order ID.
 
-The Python application creates the order IDs and calls the `neworder` endpoint of the NodeJS service.
+The Python application creates the order IDs and calls the `neworder` endpoint of the NodeJS service in a continuous loop.
 
 
 ## Prerequisites  
