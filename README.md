@@ -15,7 +15,6 @@ The NodeJS application has a `neworder` POST endpoint that persists order IDs, a
 
 The Python application creates the order IDs and calls the `neworder` endpoint of the NodeJS service in a continuous loop.
 
-
 ## Prerequisites  
 
 - [Azure account](https://azure.microsoft.com/free/search/) with rights to create resources
@@ -345,6 +344,25 @@ The Python application creates the order IDs and calls the `neworder` endpoint o
     ```bash
     curl http://<EXTERNAL_IP>/order
     ```
+
+## Dashboard
+
+1. To access the Dapr dashboard, run the following command:
+
+    ```bash
+    dapr dashboard -k
+    ```
+
+    Expected response:
+
+    ```bash
+    Dapr dashboard found in namespace: dapr-system
+    Dapr dashboard available at http://localhost:8080
+    ```
+
+2. Explore the dashboard to drill down into the applications, components, and services.
+
+3. If you want manage multiple Dapr clusters, have fail-safe upgrades/downgrades, seamless root certificate rotations, and recommendations on your Dapr configuration, then [Diagrid Conductor](https://www.diagrid.io/conductor) would be an interesting option.
 
 ## 6. Clean-up
 
